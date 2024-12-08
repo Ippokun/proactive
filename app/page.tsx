@@ -1,101 +1,141 @@
-import Image from "next/image";
+"use client";
+
+import FAQSection from "../components/FAQ";
+import Header from "../components/header";
+import Footer from "../components/footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="bg-gradient-to-b from-white-50 to-green-100">
+      <Header />
+      <section className="py-10 sm:py-16 lg:py-24">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+            <div>
+              <h1 className="text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
+                Төслийг амьдралд хэрэгжүүлэх 
+                <div className="relative inline-flex">
+                  <span className="absolute inset-x-0 bottom-0 border-b-[30px] border-[#4ADE80]"></span>
+                  <span className="relative text-4xl font-bold text-black sm:text-6xl lg:text-7xl">
+                    Proactive.
+                  </span>
+                </div>
+              </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+              <p className="mt-8 text-base text-black sm:text-xl">
+                Дижитал технологийг ашиглан фрилансерүүд болон ажил олгогчдыг холбох, 
+                хоёр талын хэрэгцээ, шаардлагыг найдвартай, үр дүнтэй хангах платформд тавтай морилно уу.
+              </p>
+
+              <div className="mt-10 sm:flex sm:items-center sm:space-x-8">
+                <Link
+                  href="/explore"
+                  className="inline-flex items-center justify-center px-10 py-4 text-base font-semibold text-white transition-all duration-200 bg-orange-500 hover:bg-orange-600 focus:bg-orange-600"
+                  role="button"
+                >
+                  Яаж ажилладаг вэ
+                </Link>
+
+                <Link
+                  href="/video"
+                  className="inline-flex items-center mt-6 text-base font-semibold transition-all duration-200 sm:mt-0 hover:opacity-80"
+                >
+                  <svg
+                    className="w-10 h-10 mr-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      fill="#F97316"
+                      stroke="#F97316"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                    Танилцуулга бичлэг
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <img
+                className="w-full"
+                src="/asset/HomeProactivePhoto.jpg"
+                alt="Фриланс платформын зураг"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+      
+      {/* Ajliin uyn hatan chanariin bolomj */}
+      ;
+
+      <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
+          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+              <div className="grid items-stretch gap-y-10 md:grid-cols-2 md:gap-x-20">
+                  <div className="relative grid grid-cols-2 gap-6 mt-10 md:mt-0">
+                      <div className="overflow-hidden aspect-w-3 aspect-h-4">
+                          <img className="object-cover object-top origin-top scale-150" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/2/team-work.jpg" alt="" />
+                      </div>
+
+                      <div className="relative">
+                          <div className="h-full overflow-hidden aspect-w-3 aspect-h-4">
+                              <img className="object-cover scale-150 lg:origin-bottom-right" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/2/woman-working-on-laptop.jpg" alt="" />
+                          </div>
+
+                          <div className="absolute inset-0 grid w-full h-full place-items-center">
+                              <button type="button" className="inline-flex items-center justify-center w-12 h-12 text-blue-600 bg-white rounded-full shadow-md lg:w-20 lg:h-20">
+                                  <svg className="w-6 h-6 lg:w-8 lg:h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                      <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z" />
+                                  </svg>
+                              </button>
+                          </div>
+                      </div>
+
+                      <div className="absolute -translate-x-1/2 left-1/2 -top-16">
+                          <img className="w-32 h-32" src="https://cdn.rareblocks.xyz/collection/celebration/images/features/2/round-text.png" alt="" />
+                      </div>
+                  </div>
+
+                  <div className="flex flex-col items-start xl:px-16">
+                      <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
+                          Танай хэрэгжүүлж буй төсөлд бид 
+                      </h2>
+                      <p className="mt-4 text-base leading-relaxed text-gray-600">
+                          Манай платформ таныг зөв мэргэжилтэнтэй холбож, ажлаа амжилттай бүтээхэд тусална. Зөвхөн мэргэжлийн фрилансерууд.
+                      </p>
+
+                      <Link
+                          href="/signup"
+                          title="Sign up now"
+                          className="inline-flex items-center justify-center px-5 py-4 mt-8 text-base font-semibold text-white transition-all duration-200 rounded-md hover:opacity-90 focus:opacity-90 lg:mt-auto bg-gradient-to-r from-fuchsia-600 to-blue-600"
+                      >
+                          Одоо бүртгүүлээрэй
+                          <svg className="w-5 h-5 ml-8 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                      </Link>
+                  </div>
+              </div>
+          </div>
+      </section>
+      
+      {/* Niitleg asuult hariult */}
+      <FAQSection />
+      {/* uur yu hiihuu */}
+      <Footer />
     </div>
   );
 }
