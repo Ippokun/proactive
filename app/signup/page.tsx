@@ -21,7 +21,7 @@ const RoleSelection = () => {
 
     return(
         <div className="flex flex-col items-center justify-center mt-8">
-            <h1 className="text-2xl font-semibold mb-4">Select Your Role</h1>
+            <h1 className="text-2xl font-semibold mb-4">Хэрэглэгчийн бүртгэлээ Сонгоно уу</h1>
             <div className="flex gap-8">
                 <div
                     className={`w-48 h-48 border-2 rounded-xl text-center p-4 cursor-pointer transition-transform duration-200 ease-in-out ${
@@ -29,8 +29,8 @@ const RoleSelection = () => {
                     } hover:scale-105`}
                     onClick={() => handleRoleSelect('client')}
                 > 
-                    <h2 className="text-xl font-medium">Client</h2>
-                    <p className="text-sm mt-2">Find the talent you're looking for</p>
+                    <h2 className="text-xl font-medium">Фрилансе хөлслөгч</h2>
+                    <p className="text-sm mt-2">Хайж буй авьяасаа олоорой.</p>
                 </div>
                 <div
                     className={`w-48 h-48 border-2 rounded-xl text-center p-4 cursor-pointer transition-transform duration-200 ease-in-out ${
@@ -38,18 +38,18 @@ const RoleSelection = () => {
                     } hover:scale-105`}
                     onClick={() => handleRoleSelect('freelancer')}
                 >
-                    <h2 className="text-xl font-medium">Freelancer</h2>
-                    <p className="text-sm mt-2">Get hired for yout skills</p>
+                    <h2 className="text-xl font-medium">Фрилансер</h2>
+                    <p className="text-sm mt-2">Өөрийн ур чадвараар тохирсон хүссэн ажлаа олоорой.</p>
                 </div>
             </div>
             {selectedRole && (
                 <div className="mt-4 text-lg font-medium">
-                    {/* Diplaying the role in the button */}
+                    {/* Төрлөө товч дээр харуулах */} 
                     <button
-                     onClick={handleNavigate} // navigate to the corresponding registration page
+                     onClick={handleNavigate} // холбогдох бүртгэлийн хуудсанд очих
                      className="px-6 py-2 mt-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
                     > 
-                    Join as {selectedRole === 'client' ? 'Client' : 'Freelancer'}</button> 
+                    {selectedRole === 'client' ? 'Фрилансе хөлслөгч' : 'Фрилансер'}-ээр бүртгүүлэх</button> 
                 </div>
             )}
         </div>

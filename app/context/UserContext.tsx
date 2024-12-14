@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -9,7 +9,14 @@ interface UserProviderProps {
 type UserContextType = {
   isLoggedIn: boolean;
   role: string;
-  setUser: (user: { isLoggedIn: boolean; role: string}) => void;
+  username: string;
+  userSecret: string;
+  setUser: (user: {
+    isLoggedIn: boolean;
+    role: string;
+    username: string;
+    userSecret: string;
+  }) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -23,13 +30,27 @@ export const useUser = () => {
 };
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const storedToken = localStorage.getItem('token');
-  const storedRole = localStorage.getItem('role');
-
   const [user, setUser] = useState({
-    isLoggedIn: storedToken !== null && storedRole !== null,
-    role: storedRole || "",
+    isLoggedIn: false,
+    role: "",
+    username: "",
+    userSecret: "",
   });
+
+  useEffect(() => {
+    // This code runs only on the client side
+    const storedToken = localStorage.getItem("token");
+    const storedRole = localStorage.getItem("role");
+    const storedUsername = localStorage.getItem("username");
+    const storedUserSecret = localStorage.getItem("userSecret");
+
+    setUser({
+      isLoggedIn: storedToken !== null && storedRole !== null,
+      role: storedRole || "",
+      username: storedUsername || "",
+      userSecret: storedUserSecret || "",
+    });
+  }, []);
 
   return (
     <UserContext.Provider value={{ ...user, setUser }}>

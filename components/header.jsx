@@ -2,11 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Modal from "./modal";
-import { useUser } from "../app/context/UserContext"; // Adjust the path according to your project structure
+import { useUser } from "../app/context/UserContext";
 import Link from "next/link";
 
 export default function Header() {
-  const { isLoggedIn, role } = useUser(); // Get the login status and role from the context
+  const { isLoggedIn, role } = useUser(); 
+  const [ isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen((prev) => !prev); // Toggle the modal visibility
+  };
 
   return (
     <header>
@@ -69,14 +74,14 @@ export default function Header() {
                 </Link>
 
                 <Link
-                  href="/solutions"
+                  href="/client/job-control"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >
                   Ажил хянах
                 </Link>
 
                 <Link
-                  href="/solutions"
+                  href="/chat"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >
                   Мессеж
@@ -91,7 +96,7 @@ export default function Header() {
                   href="/freelancer/find-work"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >
-                  Оролцох ажил
+                  Ажил хайх
                 </Link>
 
                 <Link
@@ -126,14 +131,20 @@ export default function Header() {
             {/* If user is logged in, show a profile picture or avatar */}
             {isLoggedIn && (
               <div className="relative">
-                <Link href="/profile">
                   {/* You can replace this with the actual user's profile picture */}
                   <img
-                    src="/path/to/default-avatar.png" // Replace with actual user's avatar or default avatar path
+                    src="/asset/avatar-boy.svg" // Replace with actual user's avatar or default avatar path
                     alt="Profile"
                     className="w-10 h-10 rounded-full border-2 border-black cursor-pointer"
+                    onClick={toggleModal} 
                   />
-                </Link>
+
+                    {/*Modal component */}
+                    <Modal
+                      isOpen={isModalOpen}
+                      onClose={() =>  setModalOpen(false)}
+                      userRole={role}
+                      />
               </div>
             )}
 

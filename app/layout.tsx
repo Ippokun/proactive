@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JobProvider } from "../app/client/job-control/jobContext";
 import localFont from "next/font/local";
 import { NextUIProvider } from "@nextui-org/react";
 // import { FormProvider } from "./client/job-post/FormContext"; // app dotorh buh child dotor ahiglahaar bol heregley.
@@ -26,9 +27,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <UserProvider>
+        <JobProvider>
       <body>
         <NextUIProvider >{children}</NextUIProvider>
       </body>
+      </JobProvider>
       </UserProvider>
     </html>
   );

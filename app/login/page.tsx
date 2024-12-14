@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useUser } from '../../app/context/UserContext'; // Import the context to update user
+import { useUser } from '../../app/context/UserContext'; // Контекстыг ашиглан хэрэглэгчийн мэдээллийг шинэчилнэ
 
 export default function Login() {
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
     const [error, setError] = useState('');
-    const { setUser } = useUser(); // Use context to update user state
+    const { setUser } = useUser(); // Контекстыг ашиглан хэрэглэгчийн байдал шинэчлэгдэнэ
     const router = useRouter();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,17 +36,19 @@ export default function Login() {
                 setUser({
                     isLoggedIn: true,
                     role: data.role,
+                    username: "",
+                    userSecret: ""
                 });
 
                 const redirectPath = data.role === 'freelancer' ? "/freelancer" : "/client";
                 setTimeout(() => router.push(redirectPath), 2000);
-                setMessage("Login successful!");
+                setMessage("Нэвтрэлт амжилттай боллоо!");
             } else {
-                setMessage(data.error || "Login failed!");
+                setMessage(data.error || "Нэвтрэхэд алдаа гарлаа!");
             }
         } catch (error) {
-            console.error('Error during login:', error);
-            setMessage("An error occurred. Please try again.");
+            console.error('Нэвтрэх явцад алдаа гарсан:', error);
+            setMessage("Алдаа гарлаа. Дахин оролдоно уу.");
         }
     };
 
@@ -59,10 +61,10 @@ export default function Login() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-                <h1 className="text-2xl font-bold mb-4">Login to Proactive Freelance</h1>
+                <h1 className="text-2xl font-bold mb-4">Proactive Freelance-д нэвтрэх</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email Address</label>
+                        <label className="block text-sm font-medium text-gray-700" htmlFor="email">И-мэйл хаяг</label>
                         <input
                             type="email"
                             id="email"
@@ -75,7 +77,7 @@ export default function Login() {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
+                        <label className="block text-sm font-medium text-gray-700" htmlFor="password">Нууц үг</label>
                         <input
                             type="password"
                             id="password"
@@ -88,7 +90,7 @@ export default function Login() {
                     </div>
 
                     {message && (
-                        <p className={`text-center text-sm mt-4 ${message.includes("succesful") ? 'text-green-500' : 'text-red-500'}`}>
+                        <p className={`text-center text-sm mt-4 ${message.includes("амжилттай") ? 'text-green-500' : 'text-red-500'}`}>
                             {message}
                         </p>
                     )}
@@ -97,13 +99,13 @@ export default function Login() {
                         type="submit"
                         className="w-full px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-md"
                     >
-                        Login
+                        Нэвтрэх
                     </button>
                 </form>
                 <div className="mt-4 text-sm text-center text-gray-600">
-                    Don't have an account?{" "}
+                    Хэрэглэгчийн бүртгэл үүсгээгүй юу?{" "}
                     <Link href="/signup" className="text-blue-500 hover:underline">
-                        Sign Up
+                        Бүртгэл үүсгэх
                     </Link>
                 </div>
             </div>

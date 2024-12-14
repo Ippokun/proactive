@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 // Define the type for job post data
 type JobPostData = {
   title: string;
-  skills: string[];
+  skills:[];
   deadline: string;
   subDeadline?: string;
   projectType: "" | "large" | "medium" | "small";
@@ -12,7 +12,7 @@ type JobPostData = {
   hourlyRateTo: number | null;
   projectMaxBudget: number | null;
   description: string;
-  attachments: File[]; // Store file URLs or names instead of file objects
+  // attachments: File[]; 
   [key: string]: any; // For additional steps/data
 };
 
@@ -35,7 +35,7 @@ export const JobPostProvider: React.FC<{ children: React.ReactNode }> = ({ child
     hourlyRateTo: null,
     projectMaxBudget: null,
     description: "",
-    attachments: [], // Initialize with empty array for file URLs
+    // attachments: [], 
   });
 
   return (

@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import pool from '../../db/pool.js';
+import bcrypt from 'bcrypt'; // password hashing
+
 const router = express.Router();
-const pool = require('../../db/pool');
-const bcrypt = require('bcrypt'); // password hashing
 
 // Route: POST /api/signup
 router.post('/', async (req, res) => {
@@ -31,11 +32,11 @@ router.post('/', async (req, res) => {
         );
 
         // Respond with success 
-        res.status(201).json({ message: 'User created succesfully!', userId: result.rows[0].id });
+        res.status(201).json({ message: 'User created successfully!', userId: result.rows[0].id });
     } catch (error) {
         console.error('Error during signup:', error);
         res.status(500).json({error: 'Internal Server Error' });
     }
 });
 
-module.exports = router;
+export default router; 

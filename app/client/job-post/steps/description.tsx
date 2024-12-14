@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useJobPostContext } from "../JobPostContext";
-import FileUpload from "../../../../components/fileUpload";
+// import FileUpload from "../../../../components/fileUpload"; 
 import styles from "../../../../components/style/description.module.css";
 
 interface DescriptionProps {
@@ -9,7 +9,7 @@ interface DescriptionProps {
 
 const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
   const { jobPostData, setJobPostData } = useJobPostContext();
-  const [fileList, setFileList] = useState<File[]>([]); // Temporarily store the file list here
+  // const [fileList, setFileList] = useState<File[]>([]); 
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setJobPostData((prevData) => ({
@@ -31,32 +31,39 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
       alert("Та бүх шаардлагатай талбаруудыг бөглөөгүй байна!");
       return;
     }
-  
+
     try {
       const formData = new FormData();
-      
+      console.log("jobPostData before submission:", jobPostData);
+
       formData.append("title", jobPostData.title);
       formData.append("description", jobPostData.description);
-      formData.append("skills", JSON.stringify(jobPostData.skills)); // Assuming skills is an array
       formData.append("deadline", jobPostData.deadline);
       formData.append("subDeadline", jobPostData.subDeadline);
       formData.append("projectType", jobPostData.projectType);
       formData.append("budgetType", jobPostData.budgetType);
-  
-      // Handling nullable numbers
-      formData.append("hourlyRateFrom", jobPostData.hourlyRateFrom ? jobPostData.hourlyRateFrom.toString() : '');
-      formData.append("hourlyRateTo", jobPostData.hourlyRateTo ? jobPostData.hourlyRateTo.toString() : '');
-      formData.append("projectMaxBudget", jobPostData.projectMaxBudget ? jobPostData.projectMaxBudget.toString() : '');
-  
-      // Append the file attachments
-      fileList.forEach((file) => formData.append("attachments", file));
-  
+      
+      // Handle array (skills) as stringified JSON
+      formData.append("skills", JSON.stringify(jobPostData.skills));
+
+      // Ensure hourlyRateFrom is not null before appending
+      formData.append("hourlyRateFrom", jobPostData.hourlyRateFrom !== null ? jobPostData.hourlyRateFrom.toString() : "");
+      formData.append("hourlyRateTo", jobPostData.hourlyRateTo !== null ? jobPostData.hourlyRateTo.toString() : "");
+      formData.append("projectMaxBudget", jobPostData.projectMaxBudget !== null ? jobPostData.projectMaxBudget.toString() : "");
+
+           
+
+      // file attachment logic
+      // fileList.forEach((file) => formData.append("attachments", file));
+
       // Send the job post data to the backend
-      const response = await fetch("/api/jobPost", {
+      const response = await fetch("http://localhost:4000/api/jobPost", {
         method: "POST",
         body: formData,
       });
-  
+
+      const errorData = await response.json();
+      console.log("API Error Data:", errorData);
       if (response.ok) {
         alert("Ажлын зар амжилттай бүртгэгдсэн!");
         setJobPostData({
@@ -70,7 +77,7 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
           hourlyRateFrom: null,
           hourlyRateTo: null,
           projectMaxBudget: null,
-          attachments: [],
+          // attachments: [],
         });
       } else {
         alert("Ажлын зар бүртгэж чадсангүй.");
@@ -80,10 +87,10 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
       alert("Алдаа гарлаа, дахин оролдоно уу.");
     }
   };
-  
-  function handleFilesSelected(files: File[]): void {
-    throw new Error("Function not implemented.");
-  }
+
+  // function handleFilesSelected(files: File[]): void {
+  //   setFileList(files); // Update the fileList state with the selected files
+  // }
 
   return (
     <div className={styles.container}>
@@ -107,7 +114,8 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
             />
           </div>
 
-          <div className="mt-6">
+          {/* Temporarily comment out file upload section */}
+          {/* <div className="mt-6">
             <label className={styles.label}>Хавсралт файлууд</label>
             <div className="mt-2">
               <FileUpload
@@ -116,7 +124,7 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
                 accept="image/*, .pdf"
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="mt-6 flex justify-between">
             <button onClick={onPrev} className="text-blue-500">

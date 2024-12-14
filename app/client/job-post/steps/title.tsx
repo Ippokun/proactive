@@ -15,7 +15,7 @@ const Title: React.FC<TitleStepProps> = ({ onNext }) => {
   const handleNext = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent form submission
     if (!title.trim()) {
-      setShowToast(true); // Show toast if title is empty
+      setShowToast(true); 
       return;
     }
 
@@ -24,7 +24,7 @@ const Title: React.FC<TitleStepProps> = ({ onNext }) => {
       title,
     }));
 
-    onNext(); // Proceed to the next step
+    onNext();
   };
 
   return (

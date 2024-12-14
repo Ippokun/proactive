@@ -37,7 +37,7 @@ export default function ClientSignup() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       setErrors((prev) => ({
         ...prev,
-        email: emailRegex.test(value) ? "" : "Invalid email format.",
+        email: emailRegex.test(value) ? "" : "Имэйл хаяг буруу форматтай байна.",
       }));
     }
 
@@ -47,7 +47,7 @@ export default function ClientSignup() {
         passwordMatch:
           formData.password === value || formData.confirmPassword === value
           ? ""
-          : "Passwords do not match.",
+          : "Нууц үг таарахгүй байна.",
       }));
     }
   };
@@ -64,36 +64,36 @@ export default function ClientSignup() {
 
       if (response.ok) {
         const data = await response.json();
-        setMessage("Signup succesfull!");
+        setMessage("Бүртгэл амжилттай боллоо!");
         setTimeout(() => {
           router.push("/login")
         },2000);
       } else {
         const error = await response.json();
-        setMessage(error.error || "Signup failed")
+        setMessage(error.error || "Бүртгэл амжилтгүй боллоо")
       }
   } catch (err) {
       console.error('Error during signup request:', err);
-      setMessage("An error occured. Please try again.");
+      setMessage("Алдаа гарлаа. Дахин оролдож үзнэ үү.");
   }
 };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4">Find the talent you're looking for!</h1>
+        <h1 className="text-2xl font-bold mb-4">Хайж буй авъяасаа олно уу!</h1>
 
         <div className="mb-4 text-sm text-gray-600">
-          <p>Not a Client? </p>
+          <p>Та фрилансер биш үү? </p>
           <Link href="/signup/Freelancer" className="text-blue-500 hover:underline">
-            Sign up as a Freelancer
+            Фрилансерээр бүртгүүлэх
           </Link>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="firstName">
-              First Name
+              Нэр
             </label>
             <input
               type="text"
@@ -108,7 +108,7 @@ export default function ClientSignup() {
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="lastName">
-              Last Name
+              Овог
             </label>
             <input
               type="text"
@@ -123,7 +123,7 @@ export default function ClientSignup() {
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="email">
-              Email Address
+              Имэйл хаяг
             </label>
             <input
               type="email"
@@ -134,12 +134,12 @@ export default function ClientSignup() {
               className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               required
             />
-                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="password">
-              Password
+              Нууц үг
             </label>
             <input
               type="password"
@@ -154,7 +154,7 @@ export default function ClientSignup() {
 
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="confirmPassword">
-              Re-enter Password
+              Нууц үгээ дахин оруулна уу
             </label>
             <input
               type="password"
@@ -181,35 +181,32 @@ export default function ClientSignup() {
               >
               </input>
               <span>
-                Yes, I understand and agree to the{" "}
-                <a href='#' className="text-blue-500 hover:underline">
-                  Terms of Service
+                Би <a href='#' className="text-blue-500 hover:underline">
+                  Үйлчилгээний нөхцөл
                 </a>
                 ,{""}
                 <a href='#' className="text-blue-500 hover:underline">
-                  Privacy Policy
+                  Нууцлалын бодлого
                 </a>
-                .
+                -д зөвшөөрч байна.
               </span>
             </label>
           </div>
 
-            {message && <p className="text-center text-sm mt-4 text-green-500">{message}</p>}
+          {message && <p className="text-center text-sm mt-4 text-green-500">{message}</p>}
           <button
             type="submit"
-            className={`w-full px-4 py-2 text-white font-medium rounded-md ${
-              isAgreed ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-300 cursor-not-allowed"
-            }`}
+            className={`w-full px-4 py-2 text-white font-medium rounded-md ${isAgreed ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-300 cursor-not-allowed"}`}
             disabled={!isAgreed}
           >
-            Create Account
+            Бүртгүүлэх
           </button>
         </form>
 
         <div className="mt-4 text-sm text-center text-gray-600">
-          Already have an account?{" "}
+          Аль хэдийн бүртгэлтэй үү?{" "}
           <Link href="/login" className="text-blue-500 hover:underline">
-            Login
+            Нэвтрэх
           </Link>
         </div>
       </div>
