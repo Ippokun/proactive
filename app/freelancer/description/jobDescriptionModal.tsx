@@ -93,7 +93,7 @@ const JobDescriptionModal: React.FC<JobDescriptionModalProps> = ({ job, onClose,
             className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition"
             onClick={handleApplyNow}
           >
-            Apply Now
+            Хүсэлт илгээх
           </button>
         </div>
 
@@ -139,7 +139,7 @@ const JobDescriptionModal: React.FC<JobDescriptionModalProps> = ({ job, onClose,
             </>
           ) : (
             <div className="border p-4 rounded-lg">
-              <strong className="block text-lg">Төслийн хамгийн их төсөв:</strong>
+              <strong className="block text-lg">Төслийн төсөв:</strong>
               <p>{job.project_max_budget}</p>
             </div>
           )}

@@ -5,7 +5,7 @@ import Footer from "../../../components/footer";
 import React, { useState, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { mn } from "date-fns/locale";
-import { FaHeart, FaRegHeart } from "react-icons/fa"; // Importing the heart icons
+import { FaHeart, FaRegHeart } from "react-icons/fa"; 
 import JobDescriptionModal from "../description/jobDescriptionModal";
 
 const FreelanceViewJobPosts = () => {

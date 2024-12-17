@@ -7,6 +7,8 @@ import cors from 'cors';
 import signupRouter from './pages/api/signup.js'; 
 import loginRouter from './pages/api/login.js';   
 import jobPostRouter from './pages/api/jobPost.js'; 
+import applicationRouter from './pages/api/apply.js';
+import paymentRouter from './pages/api/payment.js';
 
 dotenv.config();
 
@@ -34,6 +36,8 @@ app.use((req, res, next) => {
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/jobPost', jobPostRouter);
+app.use('/api/application', applicationRouter);
+app.use('/api/payment', paymentRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

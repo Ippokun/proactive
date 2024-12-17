@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { mn } from "date-fns/locale";
 import { useJobContext } from "../jobContext";
 import { useRouter } from "next/navigation";
+import { useUser } from "../../../context/UserContext";
 import JobDescriptionModal from "../description/jobDescriptionModal";
 
 const ViewJobPosts = () => {
@@ -16,16 +17,30 @@ const ViewJobPosts = () => {
   const router = useRouter(); 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJob, setSelectedJobState] = useState<any>(null); // Store selected job for modal
+  const { userId } = useUser();
 
   useEffect(() => {
-    const fetchJobPosts = async () => {
-      const response = await fetch("http://localhost:4000/api/jobPost/all");
-      const data = await response.json();
-      setJobPosts(data);
+    const fetchClientJobs = async () => {
+      try {
+        // Add clientId as a query parameter if available
+        const url = userId
+          ? `http://localhost:4000/api/jobPost/all?clientId=${userId}`
+          : `http://localhost:4000/api/jobPost/all`;
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch job posts");
+        }
+
+        const data = await response.json();
+        setJobPosts(data);
+      } catch (error) {
+        console.error("Error fetching client job posts:", error);
+      }
     };
 
-    fetchJobPosts();
-  }, []);
+    fetchClientJobs();
+  }, [userId]); // Re-fetch if userId changes
 
   const toggleExpanded = (id: number) => {
     setExpandedPosts((prev) => {

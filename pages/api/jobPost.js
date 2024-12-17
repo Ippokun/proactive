@@ -17,7 +17,7 @@ const router = express.Router();
 
 // const upload = multer({ storage });
 
-// POST /api/jobPost
+// POST /api/jobPost      -- for jobPost register
 router.post('/', async (req, res) => {
   console.log("Request Body Received:", req.body);
   // console.log("Files Received:", req.files);
@@ -33,15 +33,23 @@ router.post('/', async (req, res) => {
     hourlyRateFrom,
     hourlyRateTo,
     projectMaxBudget,
+    client_id
   } = req.body;
 
   // Handle file path and ensure it's valid
   // const filePath = req.file ? req.file.path : null;
 
   // Check required fields
-  if (!title || !description || !skills || !deadline || !subDeadline || !projectType || !budgetType) {
+  if (!title || !description || !skills || !deadline || !subDeadline || !projectType || !budgetType || !client_id) {
     return res.status(400).json({ error: 'All required fields must be filled.' });
   }
+
+  // ensure its number
+  const clientIdValue = parseInt(client_id, 10);
+  if (isNaN(clientIdValue)) {
+    return res.status(400).json({ error: 'Invalid client_id format.' });
+  }
+
 
   // Ensure `skills` is a valid array
   let parsedSkills = [];
@@ -72,6 +80,7 @@ router.post('/', async (req, res) => {
     hourlyRateFromValue,
     hourlyRateToValue,
     projectMaxBudgetValue,
+    client_id
     // filePath,
   });
 
@@ -88,8 +97,9 @@ router.post('/', async (req, res) => {
         budget_type,
         hourly_rate_from,
         hourly_rate_to,
-        project_max_budget
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id`,
+        project_max_budget,
+        client_id
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id`,
       [
         title,
         description,
@@ -101,6 +111,7 @@ router.post('/', async (req, res) => {
         hourlyRateFromValue,
         hourlyRateToValue,
         projectMaxBudgetValue,
+        client_id
       ]
     );
 
@@ -119,13 +130,23 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/jobPosts
+// GET /api/jobPosts   -- for solely fetching client 
 router.get('/all', async (req, res) => {
+  const { clientId } = req.query; // Retrieve clientId from query parameters
+
   try {
-    // Fetch job posts from the database
-    const result = await pool.query('SELECT * FROM jobposts');
-    
-    // Send the job posts as a response
+    let result;
+    if (clientId) {
+      // If clientId is provided, fetch job posts for that specific client
+      result = await pool.query(
+        'SELECT * FROM jobposts WHERE client_id = $1 AND ishidden = FALSE',
+        [clientId]
+      );
+    } else {
+      // Otherwise, fetch all job posts
+      result = await pool.query('SELECT * FROM jobposts WHERE ishidden = FALSE');
+    }
+
     res.status(200).json(result.rows);
   } catch (error) {
     console.error('Error fetching job posts:', error);
@@ -133,7 +154,8 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// GET /api/search
+
+// GET /api/search   -- for search and fetching [for freelancer]
 router.get('/all/search', async (req, res) => {
   const { search } = req.query;
   
@@ -158,7 +180,7 @@ router.get('/all/search', async (req, res) => {
   }
 });
 
-// PATCH /api/jobPost/:id/hide
+// PATCH /api/jobPost/:id/hide     -- for delete
 router.patch('/:id/hide', async (req, res) => {
   const jobId = req.params.id;
 
@@ -172,6 +194,25 @@ router.patch('/:id/hide', async (req, res) => {
     res.status(200).json({ message: 'Job post hidden successfully.', jobId });
   } catch (error) {
     console.error('Error hiding job post:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// GET /api/jobPosts/:id -- for freelance application 
+router.get('/:id', async (req, res) => {
+  const jobId = req.params.id;
+
+  try {
+    const result = await pool.query('SELECT * FROM jobposts WHERE id = $1', [jobId]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Job post not found.' });
+    }
+
+    res.status(200).json(result.rows[0]);
+    console.log('Job ID:', jobId);
+  } catch (error) {
+    console.error('Error fetching job post by ID:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

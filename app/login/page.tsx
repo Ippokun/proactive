@@ -31,13 +31,15 @@ export default function Login() {
             if (response.ok) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
-                localStorage.setItem('firstName', data.firstName);
-
+                localStorage.setItem('firstName', data.firstName); // Store firstName
+                localStorage.setItem('userId', data.userId); // Store userId
+    
                 setUser({
                     isLoggedIn: true,
                     role: data.role,
-                    username: "",
-                    userSecret: ""
+                    username: data.firstName, // Set username to firstName from the backend
+                    userSecret: "", // Add logic if necessary to store userSecret
+                    userId: data.userId, // Set userId
                 });
 
                 const redirectPath = data.role === 'freelancer' ? "/freelancer" : "/client";

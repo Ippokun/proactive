@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useJobPostContext } from "../JobPostContext";
 // import FileUpload from "../../../../components/fileUpload"; 
+import { useUser } from "../../../context/UserContext";
 import styles from "../../../../components/style/description.module.css";
 
 interface DescriptionProps {
@@ -9,6 +10,7 @@ interface DescriptionProps {
 
 const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
   const { jobPostData, setJobPostData } = useJobPostContext();
+  const { userId } = useUser(); // Access the logged-in user's ID (client_id)
   // const [fileList, setFileList] = useState<File[]>([]); 
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,7 +53,14 @@ const Description: React.FC<DescriptionProps> = ({ onPrev }) => {
       formData.append("hourlyRateTo", jobPostData.hourlyRateTo !== null ? jobPostData.hourlyRateTo.toString() : "");
       formData.append("projectMaxBudget", jobPostData.projectMaxBudget !== null ? jobPostData.projectMaxBudget.toString() : "");
 
-           
+      // Append client_id to the formData
+      if (userId !== null) {
+        formData.append("client_id", userId.toString());
+      } else {
+        console.error("User ID (client_id) is null.");
+        alert("Алдаа: хэрэглэгчийн ID олдсонгүй.");
+        return;
+      }
 
       // file attachment logic
       // fileList.forEach((file) => formData.append("attachments", file));

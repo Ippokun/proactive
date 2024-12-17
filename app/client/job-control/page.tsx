@@ -4,7 +4,7 @@ import Header from "../../../components/header";
 import Footer from "../../../components/footer";
 import React, { useState, useEffect } from 'react';
 import ViewJobPosts from './component/viewJobPost';
-import Proposals from './component/proposal';
+import Proposals from './component/[jobpost_id]/proposal';
 import HiredFreelancers from './component/HiredFreelancers';
 import JobDescription from "./description/jobDescriptionModal";
 import Link from "next/link";
