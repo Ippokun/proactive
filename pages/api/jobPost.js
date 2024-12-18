@@ -160,7 +160,7 @@ router.get('/all/search', async (req, res) => {
   const { search } = req.query;
   
   try {
-    let query = "SELECT * FROM jobposts";
+    let query = "SELECT * FROM jobposts WHERE isHidden = false";
     const queryParams = [];
 
     if (search) {
@@ -180,11 +180,24 @@ router.get('/all/search', async (req, res) => {
   }
 });
 
-// PATCH /api/jobPost/:id/hide     -- for delete
+// PATCH /api/jobPost/:id/hide     -- for CLIENT SIDE DELETE.
 router.patch('/:id/hide', async (req, res) => {
   const jobId = req.params.id;
 
   try {
+    // Check for applications that are not rejected
+    const applicationsResult = await pool.query(
+      'SELECT id, status FROM applications WHERE jobpost_id = $1 AND status != $2',
+      [jobId, 'rejected']
+    );
+
+    if (applicationsResult.rowCount > 0) {
+      return res.status(400).json({ 
+        message: 'You cannot hide the job post while there are pending or accepted applications. Please manage the applications first.' 
+      });
+    }
+
+    // If no pending or accepted applications exist, proceed to hide the job post
     const result = await pool.query('UPDATE jobposts SET isHidden = true WHERE id = $1 RETURNING id', [jobId]);
 
     if (result.rowCount === 0) {
@@ -198,7 +211,7 @@ router.patch('/:id/hide', async (req, res) => {
   }
 });
 
-// GET /api/jobPosts/:id -- for freelance application 
+// GET /api/jobPosts/:id -- for freelance application DESCRIPTION MODAL:
 router.get('/:id', async (req, res) => {
   const jobId = req.params.id;
 

@@ -6,18 +6,20 @@ interface UserProviderProps {
   children: ReactNode;
 }
 
+// Updated UserContextType to include 'roleInMongolian'
 type UserContextType = {
   isLoggedIn: boolean;
   role: string;
   username: string;
   userSecret: string;
-  userId: number | null; // Ensure this is `number | null`
+  userId: number | null;
+  roleInMongolian: string; // Add this line
   setUser: (user: {
     isLoggedIn: boolean;
     role: string;
     username: string;
     userSecret: string;
-    userId: number | null; // Ensure this is `number | null` too
+    userId: number | null;
   }) => void;
 };
 
@@ -31,35 +33,40 @@ export const useUser = () => {
   return context;
 };
 
+// Function to map role to Mongolian translation
+const mapRoleToMongolian = (role: string) => {
+  switch (role) {
+    case 'client':
+      return 'Фрилансе хөлслөгч'; // Mongolian equivalent for client
+    case 'freelancer':
+      return 'Фрилансер'; // Mongolian equivalent for freelancer
+    default:
+      return role; // Default to English if unknown role
+  }
+};
+
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<{
     isLoggedIn: boolean;
     role: string;
     username: string;
     userSecret: string;
-    userId: number | null; // Make sure the state userId is of type `number | null`
+    userId: number | null;
   }>({
     isLoggedIn: false,
     role: "",
     username: "",
     userSecret: "",
-    userId: null, // Initialize with null
+    userId: null,
   });
 
   useEffect(() => {
     // Retrieve data from localStorage
     const storedToken = localStorage.getItem("token");
     const storedRole = localStorage.getItem("role");
-    const storedUsername = localStorage.getItem("username");
+    const storedUsername = localStorage.getItem("firstName");
     const storedUserSecret = localStorage.getItem("userSecret");
     const storedUserId = localStorage.getItem("userId");
-
-    console.log("Retrieved from localStorage:");
-    console.log("Token:", storedToken);
-    console.log("Role:", storedRole);
-    console.log("Username:", storedUsername);
-    console.log("UserSecret:", storedUserSecret);
-    console.log("UserId:", storedUserId);
 
     // Safely parse userId and set as null if invalid
     const parsedUserId = storedUserId ? parseInt(storedUserId, 10) : null;
@@ -75,11 +82,16 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       userSecret: storedUserSecret || "", // Provide empty string as fallback for userSecret
       userId: parsedUserId, // Set userId to null if invalid
     });
-  }, []); // Only run once when the component mounts
+  }, []);
 
   return (
-    <UserContext.Provider value={{ ...user, setUser }}>
+    <UserContext.Provider value={{
+      ...user,
+      setUser,
+      roleInMongolian: mapRoleToMongolian(user.role) // Add this to the provider value
+    }}>
       {children}
     </UserContext.Provider>
   );
 };
+  

@@ -7,6 +7,7 @@ const Proposals = () => {
   const [proposals, setProposals] = useState<any[]>([]);
   const [showEscrowModal, setShowEscrowModal] = useState(false); // State for modal visibility
   const [selectedProposal, setSelectedProposal] = useState<any>(null); // Track the selected proposal for payment
+  const [isChecked, setIsChecked] = useState(false); // State to track checkbox status
   const { userId } = useUser(); // Access the logged-in user's ID (client_id)
   const clientId = userId;
   console.log("client_id", clientId);
@@ -34,7 +35,7 @@ const Proposals = () => {
   };
 
   const handleMoveToEscrow = async () => {
-    if (!selectedProposal) return;
+    if (!selectedProposal || !isChecked) return; // Ensure checkbox is checked before proceeding
 
     try {
       const response = await fetch(`http://localhost:4000/api/payment/escrow`, {
@@ -112,9 +113,14 @@ const Proposals = () => {
     }
   };
 
+  // Handle checkbox change
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
+  };
+
   return (
     <div className="container mx-auto p-4 max-w-4xl">
-      <h1 className="text-2xl font-bold mb-6">Ажлын өргөдөл</h1>
+      <h1 className="text-2xl font-bold mb-6">Ажлын хүсэлт</h1>
       {proposals.length > 0 ? (
         proposals.map((proposal) => (
           <div
@@ -122,7 +128,7 @@ const Proposals = () => {
             className="bg-white p-4 rounded shadow mb-4 border"
           >
             <h3 className="text-xl font-semibold text-blue-600 mb-2">
-              Ажлын өргөдөл: {proposal.job_title}
+              Ажлын хүсэлт: {proposal.job_title}
             </h3>
             <p className="text-sm text-gray-700">
               <strong>Фрилансер:</strong> {proposal.freelancer_name}
@@ -162,22 +168,66 @@ const Proposals = () => {
           </div>
         ))
       ) : (
-        <p className="text-gray-500">Ажлын өргөдөл хүлээж аваагүй байна.</p>
+        <p className="text-gray-500">Ажлын хүсэлт хүлээж аваагүй байна.</p>
       )}
 
       {/* Escrow Payment Modal */}
       {showEscrowModal && selectedProposal && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded shadow-md w-96">
-            <h2 className="text-xl font-bold mb-4">Төлбөр шилжүүлэх</h2>
-            <p className="mb-4">
-              Та нийт <strong>{selectedProposal.bid}₮</strong>-г escrow-д
-              байрлуулахыг зөвшөөрч байна уу?
-            </p>
-            <div className="flex justify-end gap-4">
+            <h2 className="text-xl font-bold mb-4">Итгэмжлэгдсэн дансанд Төлбөр Шилжүүлэх</h2>
+            
+            {/* Job Details */}
+            <div className="mb-4">
+              <p>
+                <strong>Ажлын нэр:</strong> {selectedProposal.job_title}
+              </p>
+              <p>
+                <strong>Фрилансер:</strong> {selectedProposal.freelancer_name}
+              </p>
+            </div>
+            
+            {/* Payment Breakdown */}
+            <div className="border-t border-b py-4 mb-4">
+              <p className="flex justify-between">
+                <span>Төлбөрийн хэмжээ:</span> 
+                <span>{selectedProposal.bid}₮</span>
+              </p>
+              <p className="flex justify-between font-bold">
+                <span>Нийт:</span>
+                <span>{selectedProposal.bid}₮</span>
+              </p>
+            </div>
+            
+            {/* Escrow Explanation */}
+            <div className="text-sm text-gray-600 mb-4">
+              <p>
+                Итгэмжлэгдсэн данс нь таны төлбөрийг аюулгүй байлгаж, 
+                ажил дууссаны дараа л фрилансерт шилжүүлнэ. Энэ нь 
+                талуудын хооронд итгэлцэл бий болгоход тусалдаг.
+              </p>
+            </div>
+            
+            {/* Confirmation Checkbox */}
+            <div className="mb-4">
+              <label className="flex items-center text-sm">
+                <input 
+                  type="checkbox" 
+                  className="mr-2" 
+                  required 
+                  checked={isChecked}
+                  onChange={handleCheckboxChange} // Handle checkbox change
+                />
+                Би Төлбөрийн нөхцлийг ойлгосон.
+              </label>
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="flex justify-between gap-4">
               <button
                 onClick={handleMoveToEscrow}
-                className="bg-green-500 text-white py-2 px-4 rounded"
+                className={`py-2 px-4 rounded ${!isChecked ? 'bg-green-500 text-gray-300 cursor-not-allowed' : 'bg-green-500 text-white'}`} 
+                disabled={!isChecked} // Disable if checkbox is not checked
               >
                 Төлбөр шилжүүлэх
               </button>

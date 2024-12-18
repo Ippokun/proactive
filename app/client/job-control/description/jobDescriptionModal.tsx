@@ -82,7 +82,7 @@ const JobDescriptionModal: React.FC<JobDescriptionModalProps> = ({ job, onClose,
             </button> */}
 
             {/* Hide Button */}
-            <button
+            {/* <button
               className="text-sm text-red-500 hover:text-red-700"
               onClick={async () => {
                 try {
@@ -99,7 +99,7 @@ const JobDescriptionModal: React.FC<JobDescriptionModalProps> = ({ job, onClose,
               }}
             >
               Устгах
-            </button>
+            </button> */}
           </div>
         </div>
 

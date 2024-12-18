@@ -1,21 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "../app/context/UserContext";
+import { useUser } from "../app/context/UserContext"; // Import the context
+import { FaUser, FaSignOutAlt } from "react-icons/fa"; // Import icons
 
-export default function Modal({ isOpen, onClose, userName, userRole, profilePic }) {
-  const { setUser } = useUser();
+export default function Modal({
+  isOpen,
+  onClose,
+  profilePic,
+}) {
+  const { setUser, username, roleInMongolian  } = useUser(); // Access username and role from context
   const router = useRouter(); // Initialize the router
-
+  console.log("username", username);
+  console.log("role", roleInMongolian );
+  
+  
   const handleLogout = () => {
     // Clear user data from localStorage
     localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    localStorage.removeItem("roleInMongolian");
+    localStorage.removeItem("username");
+    localStorage.removeItem("userSecret");
+    localStorage.removeItem("userId");
 
     // Reset user context state
-    setUser({ isLoggedIn: false, role: "" });
+    setUser({
+      isLoggedIn: false,
+      roleInMongolian : "",
+      username: "",
+      userSecret: "",
+      userId: null,
+    });
 
     // Redirect to the login screen
     router.push("/login");
@@ -36,53 +53,25 @@ export default function Modal({ isOpen, onClose, userName, userRole, profilePic 
             className="w-12 h-12 rounded-full"
           />
           <div>
-            <p className="font-semibold">{userName}</p>
-            <p className="text-sm text-gray-500">{userRole}</p>
+            <p className="font-semibold">{username}</p> {/* Displaying the username from context */}
+            <p className="text-sm text-gray-500">{roleInMongolian }</p> {/* Displaying the role from context */}
           </div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 space-y-3">
           <Link href="/profile">
-            <p className="block text-blue-600 hover:underline cursor-pointer">
-              Your Profile
-            </p>
+            <div className="flex items-center space-x-2 p-2 border-b border-gray-300 hover:bg-gray-100 rounded cursor-pointer">
+              <FaUser className="text-blue-600" />
+              <p className="text-blue-600">Таны Профайл</p> {/* Mongolian translation */}
+            </div>
           </Link>
+
           <button
             onClick={handleLogout}
-            className="block w-full text-red-600 hover:underline mt-2"
+            className="flex items-center space-x-2 p-2 border-t border-gray-300 hover:bg-gray-100 w-full text-red-600 rounded cursor-pointer"
           >
-            Logout
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Delete Confirmation Modal
-export function ModalDelete({ isOpen, onClose, onConfirm, userName,
-  userRole,
-  profilePic, }) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-        <p className="text-lg font-semibold mb-4">
-          Are you sure you want to delete this job post?
-        </p>
-        <div className="flex justify-end space-x-4">
-          <button
-            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
-            onClick={onClose}
-          >
-            Cancel
-          </button>
-          <button
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            onClick={onConfirm}
-          >
-            Delete
+            <FaSignOutAlt className="text-red-600" />
+            <p>Гарах</p> {/* Mongolian translation */}
           </button>
         </div>
       </div>

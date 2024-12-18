@@ -143,7 +143,7 @@ const ProposalPage: React.FC = () => {
             <strong>Системийн шимтгэл (5%):</strong> {fee}₮
           </p>
           <p>
-            <strong>Цэвэр ашиг:</strong> {net}₮
+            <strong>Цэвэр орлого:</strong> {net}₮
           </p>
         </>
       );
@@ -161,7 +161,7 @@ const ProposalPage: React.FC = () => {
             <strong>Системийн шимтгэл (5%):</strong> {fee}₮
           </p>
           <p>
-            <strong>Цэвэр ашиг:</strong> {net}₮
+            <strong>Цэвэр орлого:</strong> {net}₮
           </p>
         </>
       );
@@ -192,7 +192,7 @@ const ProposalPage: React.FC = () => {
               htmlFor="proposalLetter"
               className="block text-lg font-medium mb-2"
             >
-              Саналын захидал
+              Ажлын хүсэлт
             </label>
             <textarea
               id="proposalLetter"
