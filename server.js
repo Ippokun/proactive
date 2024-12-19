@@ -10,6 +10,7 @@ import jobPostRouter from './pages/api/jobPost.js';
 import applicationRouter from './pages/api/apply.js';
 import paymentRouter from './pages/api/payment.js';
 import hiredRouter from './pages/api/hired.js';
+import profileRouter from './pages/api/profile.js';
 
 dotenv.config();
 
@@ -19,11 +20,13 @@ const PORT = process.env.PORT || 4000;
 // Setup multer for parsing FormData
 const upload = multer();
 app.use(upload.any()); // Parse multipart/form-data
+// In your main app.js/server.js
+app.use('/uploads', express.static('public/uploads'));
 app.use(express.json()); // Parse JSON bodies
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:3000'], // Adjust to your front-end URL
+    origin: ['http://localhost:3000'], // front-end URL for cors
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 }));
 
@@ -40,6 +43,7 @@ app.use('/api/jobPost', jobPostRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/hired', hiredRouter);
+app.use('/api', profileRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

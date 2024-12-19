@@ -11,6 +11,8 @@ type UserContextType = {
   isLoggedIn: boolean;
   role: string;
   username: string;
+  lastname: string;
+  email: string;
   userSecret: string;
   userId: number | null;
   roleInMongolian: string; // Add this line
@@ -18,6 +20,8 @@ type UserContextType = {
     isLoggedIn: boolean;
     role: string;
     username: string;
+    lastname: string;
+    email: string;
     userSecret: string;
     userId: number | null;
   }) => void;
@@ -50,12 +54,16 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     isLoggedIn: boolean;
     role: string;
     username: string;
+    lastname: string;
+    email: string;
     userSecret: string;
     userId: number | null;
   }>({
     isLoggedIn: false,
     role: "",
     username: "",
+    lastname: "",
+    email: "",
     userSecret: "",
     userId: null,
   });
@@ -65,6 +73,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const storedToken = localStorage.getItem("token");
     const storedRole = localStorage.getItem("role");
     const storedUsername = localStorage.getItem("firstName");
+    const storedLastname = localStorage.getItem("lastName");
+    const storedEmail = localStorage.getItem("email");
     const storedUserSecret = localStorage.getItem("userSecret");
     const storedUserId = localStorage.getItem("userId");
 
@@ -79,6 +89,8 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       isLoggedIn: storedToken !== null && storedRole !== null,
       role: storedRole || "", // Provide empty string as fallback for role
       username: storedUsername || "", // Provide empty string as fallback for username
+      lastname: storedLastname || "", // Provide empty string as fallback for username
+      email: storedEmail || "", // Provide empty string as fallback for username
       userSecret: storedUserSecret || "", // Provide empty string as fallback for userSecret
       userId: parsedUserId, // Set userId to null if invalid
     });

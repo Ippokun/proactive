@@ -32,12 +32,16 @@ export default function Login() {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
                 localStorage.setItem('firstName', data.firstName); // Store firstName
+                localStorage.setItem('lastName', data.lastName); // Store firstName
+                localStorage.setItem('Email', data.email); // Store firstName
                 localStorage.setItem('userId', data.userId); // Store userId
     
                 setUser({
                     isLoggedIn: true,
                     role: data.role,
                     username: data.firstName, // Set username to firstName from the backend
+                    lastname: data.lastName, // Set username to firstName from the backend
+                    email: data.email, // Set username to firstName from the backend
                     userSecret: "", // Add logic if necessary to store userSecret
                     userId: data.userId, // Set userId
                 });

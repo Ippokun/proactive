@@ -11,7 +11,7 @@ export default function Home() {
       <div>
         {/* <h1 className="mt-10 text-2xl font-bold"> HI client </h1> */}
          {/* How it works */}
-          <section className="py-10 bg-white sm:py-16 lg:py-24">
+          <section className="min-h-screen py-10 bg-white sm:py-16 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Хэрхэн ажилладаг вэ?</h2>

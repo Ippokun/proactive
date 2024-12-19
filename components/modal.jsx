@@ -15,7 +15,12 @@ export default function Modal({
   const router = useRouter(); // Initialize the router
   console.log("username", username);
   console.log("role", roleInMongolian );
-  
+
+   // Determine the profile route based on the role
+   const profileRoute =
+   roleInMongolian === "Фрилансер"
+     ? "/profile/profile_freelancer"
+     : "/profile/profile_client";
   
   const handleLogout = () => {
     // Clear user data from localStorage
@@ -59,7 +64,7 @@ export default function Modal({
         </div>
 
         <div className="mt-4 space-y-3">
-          <Link href="/profile">
+          <Link href={profileRoute}>
             <div className="flex items-center space-x-2 p-2 border-b border-gray-300 hover:bg-gray-100 rounded cursor-pointer">
               <FaUser className="text-blue-600" />
               <p className="text-blue-600">Таны Профайл</p> {/* Mongolian translation */}

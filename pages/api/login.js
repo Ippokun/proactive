@@ -46,6 +46,8 @@ router.post('/', async (req, res) => {
             token,
             role: user.role, // Assuming `role` 
             firstName: user.first_name, // Send firstName
+            lastName: user.last_name,
+            email: user.email,
             userId: user.id
         });
     } catch (error) {

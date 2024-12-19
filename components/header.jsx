@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header className="border-b border-gray-200">
       <div className="px-4 mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex-shrink-0">
