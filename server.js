@@ -9,7 +9,7 @@ import loginRouter from './pages/api/login.js';
 import jobPostRouter from './pages/api/jobPost.js'; 
 import applicationRouter from './pages/api/apply.js';
 import paymentRouter from './pages/api/payment.js';
-import hiredRouter from './pages/api/hired.js';
+import contractRouter from './pages/api/contract.js';
 import profileRouter from './pages/api/profile.js';
 
 dotenv.config();
@@ -42,7 +42,7 @@ app.use('/api/login', loginRouter);
 app.use('/api/jobPost', jobPostRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/payment', paymentRouter);
-app.use('/api/hired', hiredRouter);
+app.use('/api/contract', contractRouter);
 app.use('/api', profileRouter);
 
 // Global Error Handler

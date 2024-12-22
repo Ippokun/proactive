@@ -155,18 +155,24 @@ router.get('/all', async (req, res) => {
 });
 
 
-// GET /api/search   -- for search and fetching [for freelancer]
 router.get('/all/search', async (req, res) => {
-  const { search } = req.query;
-  
+  const { search, page } = req.query;
+  const limit = 10; // Define your limit for pagination
+  const offset = (page - 1) * limit; // Calculate the offset for pagination
+
   try {
     let query = "SELECT * FROM jobposts WHERE isHidden = false";
     const queryParams = [];
 
     if (search) {
-      query += ' WHERE title ILIKE $1 OR description ILIKE $1';
+      // Add search condition with ILIKE for title and description
+      query += ` AND (title ILIKE $1 OR description ILIKE $1)`;
       queryParams.push(`%${search}%`);
     }
+
+    // Add pagination
+    query += ` LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;
+    queryParams.push(limit, offset);
 
     // Execute query
     const result = await pool.query(query, queryParams);
@@ -175,10 +181,10 @@ router.get('/all/search', async (req, res) => {
     res.status(200).json(result.rows);
   } catch (error) {
     console.error('Error fetching job posts:', error);
-    res.status(500).json({ error: "Internal Server Error"});
-    
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 // PATCH /api/jobPost/:id/hide     -- for CLIENT SIDE DELETE.
 router.patch('/:id/hide', async (req, res) => {

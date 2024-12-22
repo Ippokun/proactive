@@ -100,6 +100,13 @@ export default function Header() {
                 </Link>
 
                 <Link
+                  href="/freelancer/deliver-work"
+                  className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
+                >
+                  Ажил хүлээлгэх
+                </Link>
+
+                <Link
                   href="/freelancer/messages"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >

@@ -13,7 +13,7 @@ export default function Home() {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
-              Амжилтыг хэрхэн бүтээх вэ?
+              Системийг хэрхэн ашиглах вэ?
             </h2>
             <p className="max-w-lg mx-auto mt-4 text-base leading-relaxed text-gray-600">
               Бид танд амжилттай төслүүдийг эхлүүлэх, хөгжүүлэх, амжилтад хүрэхэд шаардлагатай бүх хэрэгслийг санал болгож байна.
@@ -74,9 +74,9 @@ export default function Home() {
                 </svg>
               </div>
               <div className="ml-6">
-                <h3 className="text-lg font-semibold text-black">Ажлын зар оруулах эсвэл хайх</h3>
+                <h3 className="text-lg font-semibold text-black">Ажлын зар хайх</h3>
                 <p className="mt-4 text-base text-gray-600">
-                  Ажил олгогчид төслүүдээ оруулж, фрилансерууд ажлуудыг хайж, өөрсдийн санал болгож буй үнэлгээгээ илгээх боломжтой.
+                  фрилансерууд буюу та ажлуудыг хайж, хүссэн ажилдаа хүсэлт илгээх боломжтой.
                 </p>
               </div>
             </li>

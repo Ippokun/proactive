@@ -18,7 +18,7 @@ export default function Jobcontrol() {
         <Header />
         <div className="client-dashboard">
           {/* Tab navigation section */}
-          <div className="overflow-hidden rounded-xl border border-gray-100 bg-gray-50 p-1" style={{ marginRight: '19.75rem', marginLeft: '19.75rem' }}>
+          <div className="mt-7 overflow-hidden rounded-xl border border-gray-100 bg-gray-50 p-1" style={{ marginRight: '19.75rem', marginLeft: '19.75rem' }}>
             <ul className="flex items-center gap-2 text-sm font-medium">
               <li className="flex-1">
                 <button
