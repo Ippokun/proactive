@@ -37,7 +37,7 @@ export default function Jobcontrol() {
                     activeTab === 'proposals' ? 'bg-white text-gray-700' : 'text-gray-500 hover:bg-white hover:text-gray-700'
                   }`}
                 >
-                  Ирсэн санал
+                  Ирсэн анкет
                 </button>
               </li>
               <li className="flex-1">

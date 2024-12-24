@@ -26,7 +26,7 @@ export default function FreelancerDashboard() {
                   activeTab === 'applications' ? 'bg-white text-gray-700' : 'text-gray-500 hover:bg-white hover:text-gray-700'
                 }`}
               >
-               Хүсэлтийн төлөв
+               Анкетын төлөв
               </button>
             </li>
             <li className="flex-1">

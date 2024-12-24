@@ -1,10 +1,9 @@
 'use client'
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const RoleSelection = () => {
-    const [selectedRole,  setSelectedRole ] = useState<'client' | 'freelancer' | null>(null);
+    const [selectedRole, setSelectedRole] = useState<'client' | 'freelancer' | null>(null);
     const router = useRouter();
 
     const handleRoleSelect = (role: 'client' | 'freelancer') => {
@@ -19,39 +18,60 @@ const RoleSelection = () => {
         }
     };
 
-    return(
-        <div className="flex flex-col items-center justify-center mt-8">
-            <h1 className="text-2xl font-semibold mb-4">Хэрэглэгчийн бүртгэлээ Сонгоно уу</h1>
-            <div className="flex gap-8">
-                <div
-                    className={`w-48 h-48 border-2 rounded-xl text-center p-4 cursor-pointer transition-transform duration-200 ease-in-out ${
-                        selectedRole === 'client' ? 'bg-gray-100 border-blue-500' : 'bg-white border-gray-300'
-                    } hover:scale-105`}
-                    onClick={() => handleRoleSelect('client')}
-                > 
-                    <h2 className="text-xl font-medium">Фрилансе хөлслөгч</h2>
-                    <p className="text-sm mt-2">Хайж буй авьяасаа олоорой.</p>
+    return (
+        <div className="min-h-screen flex items-center justify-center -mt-20">
+            <div className="flex flex-col items-center justify-center bg-white/50 p-12 rounded-3xl backdrop-blur-sm">
+                <h1 className="text-3xl font-bold mb-12 bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                    Хэрэглэгчийн бүртгэлээ Сонгоно уу
+                </h1>
+                <div className="flex gap-12">
+                    <div
+                        className={`w-72 h-72 rounded-3xl text-center p-8 cursor-pointer transition-all duration-300 ease-in-out 
+                            ${selectedRole === 'client' 
+                                ? 'bg-gradient-to-br from-blue-50 to-blue-100 border-4 border-blue-500 shadow-xl shadow-blue-200/50' 
+                                : 'bg-white border-4 border-gray-200 hover:border-blue-300 shadow-lg'
+                            } hover:scale-105 hover:shadow-2xl group`}
+                        onClick={() => handleRoleSelect('client')}
+                    >
+                        <div className="h-full flex flex-col justify-between">
+                            <h2 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                                Фрилансе хөлслөгч
+                            </h2>
+                            <p className="text-base mt-4 text-gray-600">
+                                Хайж буй авьяасаа олоорой.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        className={`w-72 h-72 rounded-3xl text-center p-8 cursor-pointer transition-all duration-300 ease-in-out 
+                            ${selectedRole === 'freelancer' 
+                                ? 'bg-gradient-to-br from-blue-50 to-blue-100 border-4 border-blue-500 shadow-xl shadow-blue-200/50' 
+                                : 'bg-white border-4 border-gray-200 hover:border-blue-300 shadow-lg'
+                            } hover:scale-105 hover:shadow-2xl group`}
+                        onClick={() => handleRoleSelect('freelancer')}
+                    >
+                        <div className="h-full flex flex-col justify-between">
+                            <h2 className="text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                                Фрилансер
+                            </h2>
+                            <p className="text-base mt-4 text-gray-600">
+                                Өөрийн ур чадвараар тохирсон хүссэн ажлаа олоорой.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div
-                    className={`w-48 h-48 border-2 rounded-xl text-center p-4 cursor-pointer transition-transform duration-200 ease-in-out ${
-                        selectedRole === 'freelancer' ? 'bg-gray-100 border-blue-500' : 'bg-white border-gray-300'
-                    } hover:scale-105`}
-                    onClick={() => handleRoleSelect('freelancer')}
-                >
-                    <h2 className="text-xl font-medium">Фрилансер</h2>
-                    <p className="text-sm mt-2">Өөрийн ур чадвараар тохирсон хүссэн ажлаа олоорой.</p>
-                </div>
+                {selectedRole && (
+                    <div className="mt-12">
+                        <button
+                            onClick={handleNavigate}
+                            className="px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white text-lg font-bold rounded-2xl 
+                                hover:from-blue-700 hover:to-blue-600 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                        >
+                            {selectedRole === 'client' ? 'Фрилансе хөлслөгч' : 'Фрилансер'}-ээр бүртгүүлэх
+                        </button>
+                    </div>
+                )}
             </div>
-            {selectedRole && (
-                <div className="mt-4 text-lg font-medium">
-                    {/* Төрлөө товч дээр харуулах */} 
-                    <button
-                     onClick={handleNavigate} // холбогдох бүртгэлийн хуудсанд очих
-                     className="px-6 py-2 mt-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-200"
-                    > 
-                    {selectedRole === 'client' ? 'Фрилансе хөлслөгч' : 'Фрилансер'}-ээр бүртгүүлэх</button> 
-                </div>
-            )}
         </div>
     );
 };

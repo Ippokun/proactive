@@ -128,7 +128,7 @@ const ViewApplications = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-  <h1 className="text-3xl font-bold mb-6 text-gray-800">Таны илгээсэн хүсэлт</h1>
+  <h1 className="text-3xl font-bold mb-6 text-gray-800">Таны илгээсэн анкет</h1>
   
   {error && (
     <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
@@ -172,7 +172,7 @@ const ViewApplications = () => {
                 onClick={() => handleWithdraw(application.id)}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded transition-colors duration-200"
               >
-                Хүсэлтийг татах
+                Анкетыг татах
               </button>
             </div>
           )}

@@ -138,7 +138,7 @@ const ProposalPage: React.FC = () => {
     <div>
       <Header />
     <div className="p-8 space-y-8">
-      <h1 className="text-3xl font-bold">Хүсэлт илгээх</h1>
+      <h1 className="text-3xl font-bold">Анкет илгээх</h1>
 
       {loading ? (
         <p>Ажлын дэлгэрэнгүй мэдээллийг ачаалж байна...</p>
@@ -152,13 +152,13 @@ const ProposalPage: React.FC = () => {
             {successMessage && <p className="text-green-500">{successMessage}</p>}
             <div>
               <label htmlFor="proposalLetter" className="block text-lg font-medium mb-2">
-                Ажлын хүсэлт
+                Захидал
               </label>
               <textarea
                 id="proposalLetter"
                 value={proposalLetter}
                 onChange={(e) => setProposalLetter(e.target.value)}
-                placeholder="Write your proposal letter"
+                placeholder="Анкетын захидлаа энд бичнэ үү!"
                 rows={6}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
@@ -171,7 +171,7 @@ const ProposalPage: React.FC = () => {
               }`}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Submitting..." : "Санал илгээх"}
+              {isSubmitting ? "Submitting..." : "Анкет илгээх"}
             </button>
           </form>
         </>
