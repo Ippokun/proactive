@@ -11,6 +11,8 @@ import applicationRouter from './pages/api/apply.js';
 import paymentRouter from './pages/api/payment.js';
 import contractRouter from './pages/api/contract.js';
 import profileRouter from './pages/api/profile.js';
+import adminRouter from './pages/api/admin.js';
+
 
 dotenv.config();
 
@@ -43,6 +45,7 @@ app.use('/api/jobPost', jobPostRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/contract', contractRouter);
+app.use('/api/admin', adminRouter);
 app.use('/api', profileRouter);
 
 // Global Error Handler

@@ -46,7 +46,16 @@ export default function Login() {
                     userId: data.userId, // Set userId
                 });
 
-                const redirectPath = data.role === 'freelancer' ? "/freelancer" : "/client";
+                // const redirectPath = data.role === 'freelancer' ? "/freelancer" : "/client";
+                 // Redirection based on role
+                let redirectPath = "";
+                if (data.role === 'freelancer') {
+                    redirectPath = "/freelancer";
+                } else if (data.role === 'client') {
+                    redirectPath = "/client";
+                } else if (data.role === 'admin') {
+                    redirectPath = "/admin"; // Redirect to the admin dashboard
+                }
                 setTimeout(() => router.push(redirectPath), 2000);
                 setMessage("Нэвтрэлт амжилттай боллоо!");
             } else {

@@ -80,12 +80,12 @@ export default function Header() {
                   Ажил хянах
                 </Link>
 
-                <Link
+                {/* <Link
                   href="/chat"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >
                   Мессеж
-                </Link>
+                </Link> */}
               </>
             )}
 
@@ -106,12 +106,12 @@ export default function Header() {
                   Ажил хүлээлгэх
                 </Link>
 
-                <Link
+                {/* <Link
                   href="/freelancer/messages"
                   className="text-base font-semibold text-black transition-all duration-200 hover:text-opacity-80"
                 >
                   Мессеж
-                </Link>
+                </Link> */}
               </>
             )}
 
